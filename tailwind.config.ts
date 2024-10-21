@@ -11,9 +11,17 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'lash-bg': '#f8e8e4',
+        'lash-text': '#5d4037',
+        'lash-accent': '#8d6e63',
+      },
+      fontFamily: {
+        'sans': ['Lato', 'sans-serif'],
+        'script': ['Great Vibes', 'cursive'],
       },
     },
   },
   plugins: [],
 };
+
 export default config;
