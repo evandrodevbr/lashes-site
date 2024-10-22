@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Julia's Beauty Lash Studio
 
-## Getting Started
+![Julia's Beauty Lash Studio Logo](/public/lashe.png)
 
-First, run the development server:
+## Sobre o Projeto
 
-```bash
+Julia's Beauty Lash Studio é um site profissional desenvolvido para um estúdio de extensão de cílios localizado em Camboriú, Santa Catarina, Brasil. Este projeto visa fornecer uma presença online elegante e funcional para o estúdio, permitindo que os clientes conheçam os serviços oferecidos, façam agendamentos e entrem em contato facilmente.
+
+### Nicho de Mercado
+
+Este site é destinado especificamente para:
+- Profissionais de beleza especializados em extensão de cílios
+- Estúdios de beleza focados em tratamentos para os olhos
+- Clientes em busca de serviços de extensão de cílios de alta qualidade
+
+## Tecnologias Utilizadas
+
+Este projeto foi desenvolvido utilizando as seguintes tecnologias:
+
+- **Next.js**: Framework React para renderização do lado do servidor e geração de sites estáticos.
+- **React**: Biblioteca JavaScript para construção de interfaces de usuário.
+- **TypeScript**: Superset tipado de JavaScript para melhor manutenção e escalabilidade do código.
+- **Tailwind CSS**: Framework CSS utilitário para design responsivo e customizável.
+- **Lucide React**: Biblioteca de ícones SVG para React.
+- **Vercel**: Plataforma de hospedagem e implantação para aplicações Next.js.
+
+## Funcionalidades Principais
+
+1. **Página Inicial Informativa**: Apresenta os serviços oferecidos e informações sobre o estúdio.
+2. **Sistema de Agendamento**: Permite que os clientes agendem seus horários diretamente pelo site.
+3. **Galeria de Serviços**: Exibe os diferentes estilos de extensão de cílios disponíveis.
+4. **Seção "Sobre"**: Fornece informações sobre a proprietária e a história do estúdio.
+5. **Informações de Contato**: Inclui endereço, telefone e e-mail para fácil contato.
+6. **Integração com WhatsApp**: Botão de agendamento que redireciona para o WhatsApp do estúdio.
+
+## Instalação e Execução
+
+Para executar este projeto localmente, siga estas etapas:
+
+1. Clone o repositório:
+git clone [https://github.com/seu-usuario/julias-beauty-lash-studio.git](https://github.com/seu-usuario/julias-beauty-lash-studio.git)
+
+2. Navegue até o diretório do projeto:
+cd julias-beauty-lash-studio
+
+3. Instale as dependências:
+npm install
+
+4. Execute o servidor de desenvolvimento:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estrutura do Projeto
+julias-beauty-lash-studio/
+│
+├── app/
+│   ├── components/
+│   │   ├── Calendar.tsx
+│   │   └── Footer.tsx
+│   ├── utils/
+│   │   └── ip.ts
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── public/
+│   ├── lashe.png
+│   └── julia.png
+│
+├── styles/
+│   └── globals.css
+│
+├── package.json
+├── tsconfig.json
+├── tailwind.config.js
+└── README.md
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Contribuição
 
-To learn more about Next.js, take a look at the following resources:
+Contribuições são sempre bem-vindas! Se você tem alguma ideia para melhorar este projeto, sinta-se à vontade para fazer um fork do repositório e submeter um pull request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Licença
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
 
-## Deploy on Vercel
+## Contato
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Para mais informações sobre o desenvolvimento deste projeto, entre em contato:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Evandro - [evandro.dev.br](https://evandro.dev.br) - contato@evandro.dev.br
+
+Link do Projeto: [https://github.com/seu-usuario/julias-beauty-lash-studio](https://github.com/seu-usuario/julias-beauty-lash-studio)
+
