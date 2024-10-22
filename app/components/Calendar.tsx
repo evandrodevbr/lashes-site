@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Calendar as CalendarIcon } from 'lucide-react'
 
 interface Appointment {

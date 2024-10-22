@@ -14,7 +14,7 @@ export async function GET() {
   try {
     const appointments = JSON.parse(fs.readFileSync(appointmentsFile, 'utf-8'))
     return NextResponse.json({ appointments })
-  } catch (error) {
+  } catch {
     return NextResponse.json({ appointments: [] })
   }
 }
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   let appointments: Appointment[] = []
   try {
     appointments = JSON.parse(fs.readFileSync(appointmentsFile, 'utf-8'))
-  } catch (error) {
+  } catch {
     // File doesn't exist or is empty, start with an empty array
   }
 
@@ -46,7 +46,7 @@ export async function DELETE(request: Request) {
   let appointments: Appointment[] = []
   try {
     appointments = JSON.parse(fs.readFileSync(appointmentsFile, 'utf-8'))
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'No appointments found' }, { status: 404 })
   }
 
