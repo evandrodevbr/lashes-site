@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import fs from 'fs'
+import fs from 'fs/promises'
 import path from 'path'
 
 const appointmentsFile = path.join(process.cwd(), 'appointments.json')
@@ -10,29 +10,45 @@ interface Appointment {
   time: string
 }
 
+async function readAppointments(): Promise<Appointment[]> {
+  try {
+    const data = await fs.readFile(appointmentsFile, 'utf-8')
+    return JSON.parse(data)
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      // File doesn't exist, create it with an empty array
+      await fs.writeFile(appointmentsFile, '[]')
+      return []
+    }
+    throw error
+  }
+}
+
+async function writeAppointments(appointments: Appointment[]): Promise<void> {
+  await fs.writeFile(appointmentsFile, JSON.stringify(appointments))
+}
+
 export async function GET() {
   try {
-    const appointments = JSON.parse(fs.readFileSync(appointmentsFile, 'utf-8'))
+    const appointments = await readAppointments()
     return NextResponse.json({ appointments })
-  } catch {
-    return NextResponse.json({ appointments: [] })
+  } catch (error) {
+    console.error('Error reading appointments:', error)
+    return NextResponse.json({ error: 'Failed to read appointments' }, { status: 500 })
   }
 }
 
 export async function POST(request: Request) {
-  const appointment: Appointment = await request.json()
-  
-  let appointments: Appointment[] = []
   try {
-    appointments = JSON.parse(fs.readFileSync(appointmentsFile, 'utf-8'))
-  } catch {
-    // File doesn't exist or is empty, start with an empty array
+    const appointment: Appointment = await request.json()
+    const appointments = await readAppointments()
+    appointments.push(appointment)
+    await writeAppointments(appointments)
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Error saving appointment:', error)
+    return NextResponse.json({ error: 'Failed to save appointment' }, { status: 500 })
   }
-
-  appointments.push(appointment)
-  fs.writeFileSync(appointmentsFile, JSON.stringify(appointments))
-
-  return NextResponse.json({ success: true })
 }
 
 export async function DELETE(request: Request) {
@@ -43,15 +59,13 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: 'IP is required' }, { status: 400 })
   }
 
-  let appointments: Appointment[] = []
   try {
-    appointments = JSON.parse(fs.readFileSync(appointmentsFile, 'utf-8'))
-  } catch {
-    return NextResponse.json({ error: 'No appointments found' }, { status: 404 })
+    const appointments = await readAppointments()
+    const updatedAppointments = appointments.filter(apt => apt.ip !== ip)
+    await writeAppointments(updatedAppointments)
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Error deleting appointment:', error)
+    return NextResponse.json({ error: 'Failed to delete appointment' }, { status: 500 })
   }
-
-  const updatedAppointments = appointments.filter(apt => apt.ip !== ip)
-  fs.writeFileSync(appointmentsFile, JSON.stringify(updatedAppointments))
-
-  return NextResponse.json({ success: true })
 }
