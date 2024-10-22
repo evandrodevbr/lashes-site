@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Menu, Clock, MapPin, Phone, Mail, ChevronDown } from 'lucide-react'
+import { Menu, ChevronDown } from 'lucide-react'
 import Calendar from './components/Calendar'
 import { getClientIp } from './utils/ip'
 import Image from 'next/image'
