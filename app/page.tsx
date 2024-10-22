@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Menu, Clock, MapPin, Phone, Mail, ChevronDown } from 'lucide-react'
 import Calendar from './components/Calendar'
 import { getClientIp } from './utils/ip'
+import Image from 'next/image'
 
 interface Appointment {
   ip: string;
@@ -25,19 +26,19 @@ export default function Home() {
     fetchClientIp();
   }, []);
 
-  useEffect(() => {
-    if (clientIp) {
-      fetchAppointments();
-    }
-  }, [clientIp]);
-
-  const fetchAppointments = async () => {
+  const fetchAppointments = useCallback(async () => {
     const response = await fetch('/api/appointments');
     const data = await response.json();
     setAllAppointments(data.appointments);
     const userAppointment = data.appointments.find((apt: Appointment) => apt.ip === clientIp);
     setAppointment(userAppointment || null);
-  };
+  }, [clientIp]);
+
+  useEffect(() => {
+    if (clientIp) {
+      fetchAppointments();
+    }
+  }, [clientIp, fetchAppointments]);
 
   const handleAppointmentSet = async (newAppointment: Appointment) => {
     const response = await fetch('/api/appointments', {
@@ -53,7 +54,7 @@ export default function Home() {
       await fetchAppointments();
 
       // Open WhatsApp with pre-filled message
-      const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia's Beauty Lash Studio! ✨
+      const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia&apos;s Beauty Lash Studio! ✨
 
 Espero que estejam tendo um dia maravilhoso. Gostaria de agendar uma sessão para realçar meu olhar com seus incríveis cílios. 👁💖
 
@@ -74,7 +75,7 @@ Muito obrigada pela atenção.`);
       <div className="max-w-6xl mx-auto px-4 py-8">
         <header className="flex justify-between items-center mb-12">
           <div className="text-4xl text-[#8d6e63] font-script">
-            Julia's Beauty Lash Studio
+            Julia&apos;s Beauty Lash Studio
           </div>
           <nav className="hidden md:flex space-x-8">
             <a href="#inicio" className="hover:text-[#8d6e63] transition duration-300">Home</a>
@@ -116,7 +117,7 @@ Muito obrigada pela atenção.`);
           <section id="inicio" className="flex flex-col md:flex-row items-center justify-between mb-16">
             <div className="md:w-1/2 mb-8 md:mb-0">
               <h1 className="text-5xl font-bold mb-6 text-[#5d4037]">Descubra o Poder do Seu Olhar</h1>
-              <p className="mb-6 text-lg">Querida, você já imaginou acordar todos os dias com cílios perfeitos? No Julia's Beauty Lash Studio, transformamos esse sonho em realidade.</p>
+              <p className="mb-6 text-lg">Querida, você já imaginou acordar todos os dias com cílios perfeitos? No Julia&apos;s Beauty Lash Studio, transformamos esse sonho em realidade.</p>
               {appointment ? (
                 <div>
                   <p>Você já tem um agendamento para {appointment.date} às {appointment.time}.</p>
@@ -132,11 +133,11 @@ Muito obrigada pela atenção.`);
                   </button>
                 </div>
               ) : (
-                <Calendar clientIp={clientIp} onAppointmentSet={handleAppointmentSet} />
+                <Calendar onAppointmentSet={handleAppointmentSet} />
               )}
             </div>
             <div className="md:w-1/2 relative">
-              <img src="/lashe.png" alt="Lash" className="w-full h-auto rounded-2xl" />
+              <Image src="/lashe.png" alt="Lash" width={500} height={300} layout="responsive" className="rounded-2xl" />
             </div>
           </section>
 
@@ -213,17 +214,17 @@ Muito obrigada pela atenção.`);
             <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Sobre Mim</h2>
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/3 mb-4 md:mb-0">
-                <img src="/julia.png" alt="Julia" className="rounded-full w-48 h-48 object-cover mx-auto" />
+                <Image src="/julia.png" alt="Julia" width={192} height={192} className="rounded-full object-cover mx-auto" />
               </div>
               <div className="md:w-2/3 md:pl-8">
                 <p className="mb-4">
-                  Olá! Sou Julia, a fundadora do Julia's Beauty Lash Studio. Minha paixão por realçar a beleza natural de cada cliente me levou a especializar-me na arte dos cílios.
+                  Olá! Sou Julia, a fundadora do Julia&apos;s Beauty Lash Studio. Minha paixão por realçar a beleza natural de cada cliente me levou a especializar-me na arte dos cílios.
                 </p>
                 <p className="mb-4">
                   Com anos de experiência e treinamento contínuo, estou sempre atualizada com as últimas técnicas e tendências. Meu objetivo é não apenas embelezar, mas também elevar a autoestima de cada pessoa que passa pelo nosso studio.
                 </p>
                 <p>
-                  No Julia's Beauty Lash Studio, cada sessão é uma experiência personalizada, focada em realçar sua beleza única. Mal posso esperar para te conhecer e criar o look perfeito para você!
+                  No Julia&apos;s Beauty Lash Studio, cada sessão é uma experiência personalizada, focada em realçar sua beleza única. Mal posso esperar para te conhecer e criar o look perfeito para você!
                 </p>
               </div>
             </div>
@@ -295,8 +296,7 @@ function getServiceDescription(service: string) {
     "Expertise Incomparável": "Anos de experiência e treinamento contínuo para dominar a arte dos cílios.",
     "Variedade de Estilos": "Do natural ao dramático, temos o look perfeito para cada ocasião e personalidade.",
     "Produtos Premium": "Utilizamos apenas os melhores materiais, garantindo conforto, durabilidade e segurança.",
-    "Ambiente Acolhedor":
-      "Nosso estúdio é um oásis de tranquilidade para relaxar enquanto cuidamos da sua beleza.",
+    "Ambiente Acolhedor": "Nosso  estúdio é um oásis de tranquilidade para relaxar enquanto cuidamos da sua beleza.",
     "Resultados Duradouros": "Técnicas avançadas que asseguram cílios deslumbrantes por semanas.",
     "Atendimento Personalizado": "Adaptamos cada serviço às suas necessidades e desejos únicos.",
     "Higiene Impecável": "Seguimos rigorosos protocolos de limpeza para sua segurança e tranquilidade.",
