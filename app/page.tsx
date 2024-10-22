@@ -66,13 +66,11 @@ export default function Home() {
         await fetchAppointments();
 
         // Open WhatsApp with pre-filled message
-        const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia&apos;s Beauty Lash Studio! ✨
+        const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia's Beauty Lash Studio! ✨
 
 Espero que estejam tendo um dia maravilhoso. Gostaria de agendar uma sessão para realçar meu olhar com seus incríveis cílios. 👁💖
 
-Estou sonhando com o estilo [tipo de cílios].
 Minha agenda permite no dia ${newAppointment.date} às ${newAppointment.time}.
-[Sou uma nova admiradora do studio / Sou uma cliente fiel adorando retornar].
 
 Ansiosa para brilhar com vocês novamente!
 
@@ -157,7 +155,7 @@ Muito obrigada pela atenção.`);
                   </button>
                 </div>
               ) : (
-                <Calendar onAppointmentSet={handleAppointmentSet} />
+                <Calendar onAppointmentSet={handleAppointmentSet} allAppointments={allAppointments} />
               )}
             </div>
             <div className="md:w-1/2 relative">
