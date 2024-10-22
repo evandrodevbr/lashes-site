@@ -1,8 +1,9 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap');
 
-@font-face {
+/* @font-face {
   font-family: 'Script';
   src: url('/fonts/script-font.woff2') format('woff2');
   font-weight: normal;
@@ -11,4 +12,4 @@
 
 .font-script {
   font-family: 'Script', cursive;
-}
+} */

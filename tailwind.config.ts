@@ -16,8 +16,11 @@ const config: Config = {
         'lash-accent': '#8d6e63',
       },
       fontFamily: {
-        'sans': ['Lato', 'sans-serif'],
-        'script': ['Great Vibes', 'cursive'],
+        'sans': ['var(--font-lato)', 'Lato', 'sans-serif'],
+        'script': ['var(--font-allura)', 'Allura', 'cursive'],
+        'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
+        'geist-mono': ['var(--font-geist-mono)', 'monospace'],
+        'great-vibes': ['var(--font-great-vibes)', 'Great Vibes', 'cursive'],
       },
     },
   },

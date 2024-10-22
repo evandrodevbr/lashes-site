@@ -1,82 +1,234 @@
-import React from 'react'
-import { Search, User, Menu, Star, Clock, MapPin, Phone, Mail } from 'lucide-react'
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import { Menu, Clock, MapPin, Phone, Mail, ChevronDown } from 'lucide-react'
+import Calendar from './components/Calendar'
+import { getClientIp } from './utils/ip'
+
+interface Appointment {
+  ip: string;
+  date: string;
+  time: string;
+}
 
 export default function Home() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [clientIp, setClientIp] = useState('');
+  const [appointment, setAppointment] = useState<Appointment | null>(null);
+  const [allAppointments, setAllAppointments] = useState<Appointment[]>([]);
+
+  useEffect(() => {
+    const fetchClientIp = async () => {
+      const ip = await getClientIp();
+      setClientIp(ip);
+    };
+    fetchClientIp();
+  }, []);
+
+  useEffect(() => {
+    if (clientIp) {
+      fetchAppointments();
+    }
+  }, [clientIp]);
+
+  const fetchAppointments = async () => {
+    const response = await fetch('/api/appointments');
+    const data = await response.json();
+    setAllAppointments(data.appointments);
+    const userAppointment = data.appointments.find((apt: Appointment) => apt.ip === clientIp);
+    setAppointment(userAppointment || null);
+  };
+
+  const handleAppointmentSet = async (newAppointment: Appointment) => {
+    const response = await fetch('/api/appointments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...newAppointment, ip: clientIp }),
+    });
+
+    if (response.ok) {
+      setAppointment(newAppointment);
+      await fetchAppointments();
+
+      // Open WhatsApp with pre-filled message
+      const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia's Beauty Lash Studio! ✨
+
+Espero que estejam tendo um dia maravilhoso. Gostaria de agendar uma sessão para realçar meu olhar com seus incríveis cílios. 👁💖
+
+Estou sonhando com o estilo [tipo de cílios].
+Minha agenda permite no dia ${newAppointment.date} às ${newAppointment.time}.
+[Sou uma nova admiradora do studio / Sou uma cliente fiel adorando retornar].
+
+Ansiosa para brilhar com vocês novamente!
+
+Muito obrigada pela atenção.`);
+
+      window.open(`https://wa.me/5547997691001?text=${whatsappMessage}`, '_blank');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f8e8e4] text-[#5d4037] font-sans">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <header className="flex justify-between items-center mb-12">
-          <div className="text-3xl font-script text-[#8d6e63]">Julia's Beauty Lash Studio</div>
+          <div className="text-4xl text-[#8d6e63] font-script">
+            Julia's Beauty Lash Studio
+          </div>
           <nav className="hidden md:flex space-x-8">
-            <a href="#" className="hover:text-[#8d6e63] transition duration-300">Home</a>
-            <a href="#" className="hover:text-[#8d6e63] transition duration-300">Serviços</a>
-            <a href="#" className="hover:text-[#8d6e63] transition duration-300">Sobre</a>
-            <a href="#" className="hover:text-[#8d6e63] transition duration-300">Contato</a>
+            <a href="#inicio" className="hover:text-[#8d6e63] transition duration-300">Home</a>
+            <a href="#servicos" className="hover:text-[#8d6e63] transition duration-300">Serviços</a>
+            <a href="#sobre" className="hover:text-[#8d6e63] transition duration-300">Sobre</a>
+            <div className="relative">
+              <button
+                onClick={() => setIsContactOpen(!isContactOpen)}
+                className="hover:text-[#8d6e63] transition duration-300 flex items-center"
+              >
+                Contato <ChevronDown className="ml-1 w-4 h-4" />
+              </button>
+              {isContactOpen && (
+                <div className="absolute top-full left-0 bg-white shadow-md rounded-md py-2 z-50">
+                  <a
+                    href="https://wa.me/5547997691001"
+                    className="block px-4 py-2 hover:bg-[#f8e8e4] transition duration-300"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WhatsApp
+                  </a>
+                  <a
+                    href="mailto:Julia.martins.venancio1402@gmail.com"
+                    className="block px-4 py-2 hover:bg-[#f8e8e4] transition duration-300"
+                  >
+                    Email
+                  </a>
+                </div>
+              )}
+            </div>
           </nav>
           <div className="flex items-center space-x-4">
-            <Search className="w-5 h-5 cursor-pointer hover:text-[#8d6e63] transition duration-300" />
-            <User className="w-5 h-5 cursor-pointer hover:text-[#8d6e63] transition duration-300" />
-            <button className="bg-[#8d6e63] text-white px-4 py-2 rounded-full hover:bg-[#5d4037] transition duration-300">Agendar</button>
             <Menu className="md:hidden w-6 h-6" />
           </div>
         </header>
 
-        <main className="flex flex-col md:flex-row items-center justify-between mb-16">
-          <div className="md:w-1/2 mb-8 md:mb-0">
-            <h1 className="text-5xl font-bold mb-6 text-[#5d4037]">Descubra o Poder do Seu Olhar</h1>
-            <p className="mb-6 text-lg">Querida, você já imaginou acordar todos os dias com cílios perfeitos? No Julia's Beauty Lash Studio, transformamos esse sonho em realidade.</p>
-            <button className="bg-[#5d4037] text-white px-6 py-3 rounded-full hover:bg-[#8d6e63] transition duration-300 text-lg">
-              Agende sua Consulta
-            </button>
-          </div>
-          <div className="md:w-1/2 relative">
-            <img src="/lashe.png" alt="Lash" className="w-full h-auto rounded-2xl" />
-            {/* <div className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md">
-            </div> */}
-          </div>
+        <main>
+          <section id="inicio" className="flex flex-col md:flex-row items-center justify-between mb-16">
+            <div className="md:w-1/2 mb-8 md:mb-0">
+              <h1 className="text-5xl font-bold mb-6 text-[#5d4037]">Descubra o Poder do Seu Olhar</h1>
+              <p className="mb-6 text-lg">Querida, você já imaginou acordar todos os dias com cílios perfeitos? No Julia's Beauty Lash Studio, transformamos esse sonho em realidade.</p>
+              {appointment ? (
+                <div>
+                  <p>Você já tem um agendamento para {appointment.date} às {appointment.time}.</p>
+                  <button
+                    onClick={async () => {
+                      await fetch(`/api/appointments?ip=${clientIp}`, { method: 'DELETE' });
+                      setAppointment(null);
+                      await fetchAppointments();
+                    }}
+                    className="bg-[#5d4037] text-white px-6 py-3 rounded-full hover:bg-[#8d6e63] transition duration-300 text-lg inline-block mt-4"
+                  >
+                    Cancelar Agendamento
+                  </button>
+                </div>
+              ) : (
+                <Calendar clientIp={clientIp} onAppointmentSet={handleAppointmentSet} />
+              )}
+            </div>
+            <div className="md:w-1/2 relative">
+              <img src="/lashe.png" alt="Lash" className="w-full h-auto rounded-2xl" />
+            </div>
+          </section>
+
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center text-[#5d4037]">Horários Agendados</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <thead className="bg-[#8d6e63] text-white">
+                  <tr>
+                    <th className="py-3 px-4 text-left">Dia</th>
+                    <th className="py-3 px-4 text-left">Horários</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'].map((day, index) => (
+                    <tr key={day} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                      <td className="py-3 px-4">{day}</td>
+                      <td className="py-3 px-4">
+                        {allAppointments
+                          .filter(apt => new Date(apt.date).getDay() === index)
+                          .map(apt => apt.time)
+                          .join(', ')}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="servicos" className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center text-[#5d4037]">Por que escolher nossos serviços?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                "Expertise Incomparável",
+                "Variedade de Estilos",
+                "Produtos Premium",
+                "Ambiente Acolhedor",
+                "Resultados Duradouros",
+                "Atendimento Personalizado",
+                "Higiene Impecável",
+                "Economia de Tempo",
+                "Boost de Autoestima",
+                "Cliente Fidelidade"
+              ].map((item, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col justify-between h-full">
+                  <h3 className="font-bold mb-2 text-[#8d6e63] text-lg">{item}</h3>
+                  <p className="text-sm">{getServiceDescription(item)}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-white p-8 rounded-lg shadow-md mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Nossos Serviços</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                "Cílios Fio a Fio Clássico",
+                "Volume Híbrido",
+                "Volume Russo Light",
+                "Volume Russo",
+                "Mega Volume",
+                "Design de Sobrancelhas"
+              ].map((service, index) => (
+                <div key={index} className="flex items-center space-x-3">
+                  <div className="w-2 h-2 rounded-full bg-[#8d6e63]"></div>
+                  <span>{service}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section id="sobre" className="bg-white p-8 rounded-lg shadow-md mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Sobre Mim</h2>
+            <div className="flex flex-col md:flex-row items-center">
+              <div className="md:w-1/3 mb-4 md:mb-0">
+                <img src="/julia.png" alt="Julia" className="rounded-full w-48 h-48 object-cover mx-auto" />
+              </div>
+              <div className="md:w-2/3 md:pl-8">
+                <p className="mb-4">
+                  Olá! Sou Julia, a fundadora do Julia's Beauty Lash Studio. Minha paixão por realçar a beleza natural de cada cliente me levou a especializar-me na arte dos cílios.
+                </p>
+                <p className="mb-4">
+                  Com anos de experiência e treinamento contínuo, estou sempre atualizada com as últimas técnicas e tendências. Meu objetivo é não apenas embelezar, mas também elevar a autoestima de cada pessoa que passa pelo nosso studio.
+                </p>
+                <p>
+                  No Julia's Beauty Lash Studio, cada sessão é uma experiência personalizada, focada em realçar sua beleza única. Mal posso esperar para te conhecer e criar o look perfeito para você!
+                </p>
+              </div>
+            </div>
+          </section>
         </main>
-
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center text-[#5d4037]">Por que escolher nossos serviços?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              "Expertise Incomparável",
-              "Variedade de Estilos",
-              "Produtos Premium",
-              "Ambiente Acolhedor",
-              "Resultados Duradouros",
-              "Atendimento Personalizado",
-              "Higiene Impecável",
-              "Economia de Tempo",
-              "Boost de Autoestima",
-              "Cliente Fidelidade"
-            ].map((item, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                <h3 className="font-bold mb-2 text-[#8d6e63]">{item}</h3>
-                <p className="text-sm">{getServiceDescription(item)}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-white p-8 rounded-lg shadow-md mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Nossos Serviços</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              "Cílios Fio a Fio Clássico",
-              "Volume Híbrido",
-              "Volume Russo Light",
-              "Volume Russo",
-              "Mega Volume",
-              "Design de Sobrancelhas"
-            ].map((service, index) => (
-              <div key={index} className="flex items-center space-x-3">
-                <div className="w-2 h-2 rounded-full bg-[#8d6e63]"></div>
-                <span>{service}</span>
-              </div>
-            ))}
-          </div>
-        </section>
 
         <footer className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
           <div>
@@ -143,7 +295,8 @@ function getServiceDescription(service: string) {
     "Expertise Incomparável": "Anos de experiência e treinamento contínuo para dominar a arte dos cílios.",
     "Variedade de Estilos": "Do natural ao dramático, temos o look perfeito para cada ocasião e personalidade.",
     "Produtos Premium": "Utilizamos apenas os melhores materiais, garantindo conforto, durabilidade e segurança.",
-    "Ambiente Acolhedor": "Nosso estúdio é um oásis de tranquilidade para relaxar enquanto cuidamos da sua beleza.",
+    "Ambiente Acolhedor":
+      "Nosso estúdio é um oásis de tranquilidade para relaxar enquanto cuidamos da sua beleza.",
     "Resultados Duradouros": "Técnicas avançadas que asseguram cílios deslumbrantes por semanas.",
     "Atendimento Personalizado": "Adaptamos cada serviço às suas necessidades e desejos únicos.",
     "Higiene Impecável": "Seguimos rigorosos protocolos de limpeza para sua segurança e tranquilidade.",
