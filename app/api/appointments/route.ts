@@ -20,12 +20,18 @@ async function readAppointments(): Promise<Appointment[]> {
       await fs.writeFile(appointmentsFile, '[]')
       return []
     }
+    console.error('Error reading appointments:', error)
     throw error
   }
 }
 
 async function writeAppointments(appointments: Appointment[]): Promise<void> {
-  await fs.writeFile(appointmentsFile, JSON.stringify(appointments))
+  try {
+    await fs.writeFile(appointmentsFile, JSON.stringify(appointments))
+  } catch (error) {
+    console.error('Error writing appointments:', error)
+    throw error
+  }
 }
 
 export async function GET() {
@@ -33,7 +39,7 @@ export async function GET() {
     const appointments = await readAppointments()
     return NextResponse.json({ appointments })
   } catch (error) {
-    console.error('Error reading appointments:', error)
+    console.error('Error in GET:', error)
     return NextResponse.json({ error: 'Failed to read appointments' }, { status: 500 })
   }
 }
@@ -41,12 +47,20 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const appointment: Appointment = await request.json()
+    console.log('Received appointment:', appointment)
+
+    if (!appointment.ip || !appointment.date || !appointment.time) {
+      return NextResponse.json({ error: 'Invalid appointment data' }, { status: 400 })
+    }
+
     const appointments = await readAppointments()
     appointments.push(appointment)
     await writeAppointments(appointments)
+    
+    console.log('Appointment saved successfully')
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error saving appointment:', error)
+    console.error('Error in POST:', error)
     return NextResponse.json({ error: 'Failed to save appointment' }, { status: 500 })
   }
 }
@@ -65,7 +79,7 @@ export async function DELETE(request: Request) {
     await writeAppointments(updatedAppointments)
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error deleting appointment:', error)
+    console.error('Error in DELETE:', error)
     return NextResponse.json({ error: 'Failed to delete appointment' }, { status: 500 })
   }
 }

@@ -41,20 +41,31 @@ export default function Home() {
   }, [clientIp, fetchAppointments]);
 
   const handleAppointmentSet = async (newAppointment: Appointment) => {
-    const response = await fetch('/api/appointments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...newAppointment, ip: clientIp }),
-    });
+    try {
+      const response = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ip: clientIp,
+          date: newAppointment.date,
+          time: newAppointment.time
+        }),
+      });
 
-    if (response.ok) {
-      setAppointment(newAppointment);
-      await fetchAppointments();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save appointment');
+      }
 
-      // Open WhatsApp with pre-filled message
-      const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia&apos;s Beauty Lash Studio! ✨
+      const data = await response.json();
+      if (data.success) {
+        setAppointment(newAppointment);
+        await fetchAppointments();
+
+        // Open WhatsApp with pre-filled message
+        const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia&apos;s Beauty Lash Studio! ✨
 
 Espero que estejam tendo um dia maravilhoso. Gostaria de agendar uma sessão para realçar meu olhar com seus incríveis cílios. 👁💖
 
@@ -66,7 +77,11 @@ Ansiosa para brilhar com vocês novamente!
 
 Muito obrigada pela atenção.`);
 
-      window.open(`https://wa.me/5547997691001?text=${whatsappMessage}`, '_blank');
+        window.open(`https://wa.me/5547997691001?text=${whatsappMessage}`, '_blank');
+      }
+    } catch (error) {
+      console.error('Error setting appointment:', error);
+      // Handle the error (e.g., show an error message to the user)
     }
   };
 
@@ -123,9 +138,17 @@ Muito obrigada pela atenção.`);
                   <p>Você já tem um agendamento para {appointment.date} às {appointment.time}.</p>
                   <button
                     onClick={async () => {
-                      await fetch(`/api/appointments?ip=${clientIp}`, { method: 'DELETE' });
-                      setAppointment(null);
-                      await fetchAppointments();
+                      try {
+                        const response = await fetch(`/api/appointments?ip=${clientIp}`, { method: 'DELETE' });
+                        if (!response.ok) {
+                          throw new Error('Failed to delete appointment');
+                        }
+                        setAppointment(null);
+                        await fetchAppointments();
+                      } catch (error) {
+                        console.error('Error deleting appointment:', error);
+                        // Handle the error (e.g., show an error message to the user)
+                      }
                     }}
                     className="bg-[#5d4037] text-white px-6 py-3 rounded-full hover:bg-[#8d6e63] transition duration-300 text-lg inline-block mt-4"
                   >
