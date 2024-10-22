@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Menu, Clock, MapPin, Phone, Mail, ChevronDown } from 'lucide-react'
+import { Menu, ChevronDown } from 'lucide-react'
 import Calendar from './components/Calendar'
 import { getClientIp } from './utils/ip'
 import Image from 'next/image'
+import Footer from './components/Footer'
 
 interface Appointment {
   ip: string;
@@ -65,13 +66,11 @@ export default function Home() {
         await fetchAppointments();
 
         // Open WhatsApp with pre-filled message
-        const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia&apos;s Beauty Lash Studio! ✨
+        const whatsappMessage = encodeURIComponent(`Olá, querida equipe do Julia's Beauty Lash Studio! ✨
 
 Espero que estejam tendo um dia maravilhoso. Gostaria de agendar uma sessão para realçar meu olhar com seus incríveis cílios. 👁💖
 
-Estou sonhando com o estilo [tipo de cílios].
 Minha agenda permite no dia ${newAppointment.date} às ${newAppointment.time}.
-[Sou uma nova admiradora do studio / Sou uma cliente fiel adorando retornar].
 
 Ansiosa para brilhar com vocês novamente!
 
@@ -156,7 +155,7 @@ Muito obrigada pela atenção.`);
                   </button>
                 </div>
               ) : (
-                <Calendar onAppointmentSet={handleAppointmentSet} />
+                <Calendar onAppointmentSet={handleAppointmentSet} allAppointments={allAppointments} />
               )}
             </div>
             <div className="md:w-1/2 relative">
@@ -192,7 +191,7 @@ Muito obrigada pela atenção.`);
           </section>
 
           <section id="servicos" className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center text-[#5d4037]">Por que escolher nossos serviços?</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center text-[#5d4037]">Por que escolher meus serviços?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 "Expertise Incomparável",
@@ -215,7 +214,7 @@ Muito obrigada pela atenção.`);
           </section>
 
           <section className="bg-white p-8 rounded-lg shadow-md mb-16">
-            <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Nossos Serviços</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Meus Serviços</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 "Cílios Fio a Fio Clássico",
@@ -253,62 +252,7 @@ Muito obrigada pela atenção.`);
             </div>
           </section>
         </main>
-
-        <footer className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-          <div>
-            <h4 className="font-bold mb-4 text-lg">Horário de Funcionamento</h4>
-            <div className="flex items-center space-x-2 mb-2">
-              <Clock className="w-4 h-4" />
-              <span>Segunda a Sábado: 9h às 18:30h</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Clock className="w-4 h-4" />
-              <span>Domingo: Fechado</span>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4 text-lg">Localização</h4>
-            <div className="flex items-center space-x-2 mb-2">
-              <MapPin className="w-4 h-4" />
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Rua+Acre,+836,+Bairro+Areias,+88340-000+Camboriú+-+SC,+Brasil"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#8d6e63] transition duration-300"
-              >
-                <span>
-                  Rua Acre, 836
-                  Bairro Areias
-                  88340-000 Camboriú - SC
-                  Brasil
-                </span>
-              </a>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4 text-lg">Contato</h4>
-            <div className="flex items-center space-x-2 mb-2">
-              <Phone className="w-4 h-4" />
-              <a
-                href="https://wa.me/5547997691001"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#8d6e63] transition duration-300"
-              >
-                (47) 99769-1001
-              </a>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Mail className="w-4 h-4" />
-              <a
-                href="mailto:Julia.martins.venancio1402@gmail.com"
-                className="hover:text-[#8d6e63] transition duration-300"
-              >
-                Julia.martins.venancio1402@gmail.com
-              </a>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   )
