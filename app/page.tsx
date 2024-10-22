@@ -192,7 +192,7 @@ Muito obrigada pela atenção.`);
           </section>
 
           <section id="servicos" className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center text-[#5d4037]">Por que escolher nossos serviços?</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center text-[#5d4037]">Por que escolher meus serviços?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 "Expertise Incomparável",
@@ -215,7 +215,7 @@ Muito obrigada pela atenção.`);
           </section>
 
           <section className="bg-white p-8 rounded-lg shadow-md mb-16">
-            <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Nossos Serviços</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center text-[#5d4037]">Meus Serviços</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 "Cílios Fio a Fio Clássico",
