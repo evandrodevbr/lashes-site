@@ -1,12 +1,14 @@
+<output>
+```
 # Julia's Beauty Lash Studio
 
 ![Julia's Beauty Lash Studio Logo][]
 
-![License][]
-![Issues][]
-![Forks][]
-![Stars][]
-![Last Commit][]
+[![License][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/blob/main/LICENSE)
+[![Issues][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/issues)
+[![Forks][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/network/members)
+[![Stars][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/stargazers)
+[![Last Commit][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/commits/main)
 
 ## 📜 Sumário
 
@@ -55,7 +57,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - **Tailwind CSS:** Framework CSS utilitário para design responsivo e customizável.
 - **Lucide React:** Biblioteca de ícones SVG para React.
 - **Vercel:** Plataforma de hospedagem e implantação para aplicações Next.js.
-- **Firebase:** Serviço Backend-as-a-Service (BaaS) para autenticação e banco de dados (se aplicável).
+- **Firebase:** Serviço Backend-as-a-Service (BaaS) para autenticação e banco de dados.
 - **ESLint & Prettier:** Ferramentas para garantir qualidade e consistência do código.
 
 ## ✨ Funcionalidades Principais
@@ -66,7 +68,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 4. **Seção "Sobre":** Fornece informações sobre a proprietária e a história do estúdio.
 5. **Informações de Contato:** Inclui endereço, telefone e e-mail para fácil contato.
 6. **Integração com WhatsApp:** Botão de agendamento que redireciona para o WhatsApp do estúdio.
-7. **Blog (Opcional):** Área para publicar dicas de beleza, tendências e novidades.
+7. **Blog:** Área para publicar dicas de beleza, tendências e novidades.
 8. **Testimonials:** Depoimentos de clientes satisfeitos para construir confiança.
 9. **SEO Otimizado:** Melhorar a visibilidade nos motores de busca.
 10. **Design Responsivo:** Garantir a melhor experiência em dispositivos móveis e desktops.
@@ -136,50 +138,50 @@ Para executar este projeto localmente, siga estas etapas:
 
 1. **Clone o repositório:**
 
-    ```bash
-    git clone https://github.com/seu-usuario/julias-beauty-lash-studio.git
-    ```
+```bash
+git clone https://github.com/evandrodevbr/julias-beauty-lash-studio.git
+```
 
 2. **Navegue até o diretório do projeto:**
 
-    ```bash
-    cd julias-beauty-lash-studio
-    ```
+```bash
+cd julias-beauty-lash-studio
+```
 
 3. **Instale as dependências:**
 
-    ```bash
-    npm install
-    # ou
-    yarn install
-    ```
+```bash
+npm install
+# ou
+yarn install
+```
 
 4. **Configure as Variáveis de Ambiente:**
 
-    Crie um arquivo `.env.local` na raiz do projeto e adicione as variáveis necessárias. Exemplo:
+Crie um arquivo `.env.local` na raiz do projeto e adicione as variáveis necessárias:
 
-    ```env
-    NEXT_PUBLIC_API_URL=https://api.juliasbeauty.com
-    FIREBASE_API_KEY=your_api_key
-    FIREBASE_AUTH_DOMAIN=your_auth_domain
-    # ...outras variáveis
-    ```
+```env
+NEXT_PUBLIC_API_URL=https://api.juliasbeauty.com
+FIREBASE_API_KEY=your_api_key
+FIREBASE_AUTH_DOMAIN=your_auth_domain
+# ...outras variáveis
+```
 
 5. **Execute o servidor de desenvolvimento:**
 
-    ```bash
-    npm run dev
-    # ou
-    yarn dev
-    ```
+```bash
+npm run dev
+# ou
+yarn dev
+```
 
 6. **Abra o site no navegador:**
 
-    Acesse [http://localhost:3000](http://localhost:3000) para ver o resultado.
+Acesse [http://localhost:3000](http://localhost:3000)
 
 ## 🧪 Testes
 
-Este projeto utiliza [Jest](https://jestjs.io/) e [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) para testes unitários e de integração.
+Este projeto utiliza [Jest](https://jestjs.io/) e [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) para testes.
 
 ### Executar Testes
 
@@ -191,8 +193,6 @@ yarn test
 
 ### Cobertura de Testes
 
-Para gerar um relatório de cobertura:
-
 ```bash
 npm run test:coverage
 # ou
@@ -201,80 +201,52 @@ yarn test:coverage
 
 ## 🤝 Contribuição
 
-Contribuições são sempre bem-vindas! Siga os passos abaixo para contribuir com este projeto:
+Contribuições são sempre bem-vindas! Siga os passos abaixo:
 
-### Passos para Contribuir
-
-1. **Fork** este repositório.
-
-2. **Crie** uma nova branch para sua funcionalidade ou correção de bug:
-
-    ```bash
-    git checkout -b minha-nova-funcionalidade
-    ```
-
-3. **Comite** suas alterações:
-
-    ```bash
-    git commit -m "Adiciona nova funcionalidade X"
-    ```
-
-4. **Faça push** para a branch:
-
-    ```bash
-    git push origin minha-nova-funcionalidade
-    ```
-
-5. **Abra um Pull Request** detalhando as suas alterações.
-
-### Diretrizes de Contribuição
-
-- **Código Limpo:** Mantenha o código organizado e bem comentado.
-- **Conformidade com o Estilo de Código:** Siga as configurações do ESLint e Prettier.
-- **Testes:** Adicione testes para novas funcionalidades ou para correções de bugs.
-- **Documentação:** Atualize o README se necessário.
+1. **Fork** este repositório
+2. **Crie uma branch** para sua feature:
+```bash
+git checkout -b feature/nova-funcionalidade
+```
+3. **Comite** suas mudanças:
+```bash
+git commit -m 'Adiciona nova funcionalidade'
+```
+4. **Push** para a branch:
+```bash
+git push origin feature/nova-funcionalidade
+```
+5. Abra um **Pull Request**
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT). Veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/evandrodevbr/julias-beauty-lash-studio/blob/main/LICENSE) para mais detalhes.
 
 ## 📬 Contato
-
-Para mais informações sobre o desenvolvimento deste projeto, entre em contato:
 
 - **Evandro**
   - [Site Pessoal](https://evandro.dev.br)
   - Email: [contato@evandro.dev.br](mailto:contato@evandro.dev.br)
-  - [LinkedIn](https://www.linkedin.com/in/seu-usuario)
-  - [Twitter](https://twitter.com/seu-usuario)
+  - [LinkedIn](https://www.linkedin.com/in/evandrodevbr)
+  - [Twitter](https://twitter.com/evandrodevbr)
 
-**Link do Projeto:** [https://github.com/seu-usuario/julias-beauty-lash-studio](https://github.com/seu-usuario/julias-beauty-lash-studio)
+**Link do Projeto:** [https://github.com/evandrodevbr/julias-beauty-lash-studio](https://github.com/evandrodevbr/julias-beauty-lash-studio)
 
 ## 📁 Demo
 
-Confira o site ao vivo:
-
-[Julia's Beauty Lash Studio](https://juliasbeauty.vercel.app)
-
----
+Confira o site ao vivo: [Julia's Beauty Lash Studio](https://juliasbeauty.vercel.app)
 
 ## 📚 Recursos Adicionais
 
-- **Documentação Oficial do Next.js:** [https://nextjs.org/docs](https://nextjs.org/docs)
-- **Tailwind CSS:** [https://tailwindcss.com/docs](https://tailwindcss.com/docs)
-- **Lucide React:** [https://lucide.dev/](https://lucide.dev/)
-- **Guia de Contribuição do GitHub:** [https://docs.github.com/en/get-started/quickstart/contributing-to-projects](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
+- [Documentação Next.js](https://nextjs.org/docs)
+- [Documentação Tailwind CSS](https://tailwindcss.com/docs)
+- [Documentação Lucide React](https://lucide.dev/)
+- [Guia de Contribuição](https://docs.github.com/pt/get-started/quickstart/contributing-to-projects)
 
 ---
 
-### 📝 Notas Finais
+Desenvolvido com ❤️ por [Evandro](https://evandro.dev.br)
 
-1. **Substituir `seu-usuario`:** Certifique-se de substituir `seu-usuario` pelo seu nome de usuário real no GitHub nos links do repositório e badges.
-
-2. **Imagens:** Verifique se todas as imagens referenciadas estão presentes na pasta `public` e que os caminhos estão corretos. Adicione capturas de tela adicionais para enriquecer a documentação.
-
-3. **Variáveis de Ambiente:** Nunca inclua informações sensíveis no repositório público. Utilize variáveis de ambiente para gerenciar credenciais e segredos.
-
-4. **Automação de Deploy:** Considere configurar workflows de CI/CD (por exemplo, GitHub Actions) para automatizar testes e deploys.
-
-5. **Atualizações Contínuas:** Mantenha o README atualizado conforme o projeto evolui, adicionando novas funcionalidades, melhorias ou alterações na estrutura.
+[Julia's Beauty Lash Studio Logo]: https://raw.githubusercontent.com/evandrodevbr/julias-beauty-lash-studio/main/public/images/logo.png[License]: https://img.shields.io/github/license/evandrodevbr/julias-beauty-lash-studio
+[Issues]: https://img.shields.io/github/issues/evandrodevbr/julias-beauty-lash-studio[Forks]: https://img.shields.io/github/forks/evandrodevbr/julias-beauty-lash-studio[Stars]: https://img.shields.io/github/stars/evandrodevbr/julias-beauty-lash-studio[Last Commit]: https://img.shields.io/github/last-commit/evandrodevbr/julias-beauty-lash-studio[Screenshot da Página Inicial]: https://raw.githubusercontent.com/evandrodevbr/julias-beauty-lash-studio/main/public/images/screenshot-home.png```
+</output>
