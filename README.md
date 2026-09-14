@@ -98,7 +98,7 @@ npm run build   # next build, gera o build de produção em .next/
 npm run start   # next start, serve o build de produção na porta 3000
 ```
 
-**Vercel.** O site está publicado em <https://lashes-site.vercel.app>, com deploy ligado ao repositório (cada push na branch `main` gera um novo deploy). Nessa hospedagem a página funciona, mas o endpoint de agendamento responde 500 porque o filesystem das funções é somente leitura. Detalhes em "Estado atual e limitações".
+**Vercel.** O site está publicado em <https://lashes-site.vercel.app>, com deploy ligado ao repositório (cada push na branch `main` gera um novo deploy, confirmado no redeploy de 14/09/2026). Nessa hospedagem a página funciona, mas o agendamento não grava: o `POST /api/appointments` responde 500 porque o filesystem das funções é somente leitura. Detalhes em "Estado atual e limitações".
 
 **Docker.** A imagem é multi-stage com Node 20.18.0, roda `npm ci`, `npm run build` e inicia com `npm run start`:
 
@@ -137,7 +137,7 @@ Não há testes automatizados neste repositório (nem Jest, ao contrário do que
 
 ## Estado atual e limitações
 
-- O agendamento não persiste na Vercel: `GET /api/appointments` responde 500 em produção porque o filesystem das funções serverless é somente leitura. Verificado em 14/09/2026 em <https://lashes-site.vercel.app/api/appointments>.
+- O agendamento não persiste na Vercel: `POST /api/appointments` responde 500 em produção porque o filesystem das funções serverless é somente leitura, então o horário escolhido não é gravado. Verificado em 14/09/2026 em <https://lashes-site.vercel.app/api/appointments>: `POST` 500 e `GET` 200. No deploy anterior ao redeploy dessa data o `GET` respondia 500; a causa não foi verificada por falta de acesso aos logs do projeto na Vercel.
 - `appointments.json` fica no diretório de trabalho e está versionado: rodar o app localmente deixa o arquivo modificado no git e, em uso real, grava dados de clientes (IP, data, hora) em um arquivo do repositório. Não commite essas alterações.
 - `bcrypt`, `sqlite` e `sqlite3` estão declarados no `package.json` mas não são importados em nenhum lugar; o Dockerfile e o `fly.toml` ainda preveem um banco sqlite que o código não usa.
 - O identificador do agendamento é o IP público (sem login): redes compartilhadas podem colidir e, se `api.ipify.org` estiver bloqueado no navegador da cliente, o agendamento falha com 400.
