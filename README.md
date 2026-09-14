@@ -1,252 +1,159 @@
-<output>
-```
-# Julia's Beauty Lash Studio
+# lashes-site: Julia's Beauty Lash Studio
 
-![Julia's Beauty Lash Studio Logo][]
+**Site institucional com agendamento online do estúdio de extensão de cílios Julia's Beauty Lash Studio, em Camboriú (SC): página única com serviços, seção sobre, agenda de horários e confirmação do agendamento pelo WhatsApp.**
 
-[![License][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/blob/main/LICENSE)
-[![Issues][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/issues)
-[![Forks][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/network/members)
-[![Stars][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/stargazers)
-[![Last Commit][]](https://github.com/evandrodevbr/julias-beauty-lash-studio/commits/main)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14.2.15-000000?logo=nextdotjs&logoColor=white)
+[![Deploy](https://img.shields.io/badge/deploy-lashes--site.vercel.app-000000?logo=vercel&logoColor=white)](https://lashes-site.vercel.app)
+![Último commit](https://img.shields.io/github/last-commit/evandrodevbr/lashes-site)
 
-## 📜 Sumário
+## Sobre
 
-- [📌 Sobre o Projeto](#-sobre-o-projeto)
-- [🎯 Objetivos](#-objetivos)
-- [🔍 Nicho de Mercado](#-nicho-de-mercado)
-- [🛠 Tecnologias Utilizadas](#-tecnologias-utilizadas)
-- [✨ Funcionalidades Principais](#-funcionalidades-principais)
-- [📂 Estrutura do Projeto](#-estrutura-do-projeto)
-- [🚀 Instalação e Execução](#-instalação-e-execução)
-- [🧪 Testes](#-testes)
-- [🤝 Contribuição](#-contribuição)
-- [📄 Licença](#-licença)
-- [📬 Contato](#-contato)
-- [📁 Demo](#-demo)
-- [📚 Recursos Adicionais](#-recursos-adicionais)
+O estúdio da Julia precisava de presença online para mostrar o trabalho e permitir que a cliente escolha um horário sem a ida e volta de mensagens no WhatsApp. O site resolve isso em uma página única: apresenta o estúdio e os serviços, mostra os horários já ocupados por dia da semana e oferece um formulário de agendamento. Ao confirmar, o horário é gravado pela API e o WhatsApp abre com a mensagem já preenchida com a data e a hora escolhidas.
 
-## 📌 Sobre o Projeto
-
-**Julia's Beauty Lash Studio** é um site profissional desenvolvido para um estúdio de extensão de cílios localizado em Camboriú, Santa Catarina, Brasil. Este projeto visa proporcionar uma presença online elegante e funcional para o estúdio, permitindo que os clientes conheçam os serviços oferecidos, agendem horários e entrem em contato facilmente.
-
-![Screenshot da Página Inicial][]
-
-## 🎯 Objetivos
-
-- **Presença Online Profissional:** Estabelecer uma identidade digital forte para o estúdio.
-- **Facilitar Agendamentos:** Implementar um sistema de agendamento eficiente e intuitivo.
-- **Mostrar Portfólio:** Exibir exemplos de trabalhos realizados para atrair novos clientes.
-- **Melhorar Comunicação:** Facilitar o contato entre clientes e o estúdio através de múltiplos canais.
-
-## 🔍 Nicho de Mercado
-
-Este site é destinado especificamente para:
-
-- **Profissionais de Beleza** especializados em extensão de cílios.
-- **Estúdios de Beleza** focados em tratamentos para os olhos.
-- **Clientes** em busca de serviços de extensão de cílios de alta qualidade.
-
-## 🛠 Tecnologias Utilizadas
-
-O projeto foi desenvolvido utilizando as seguintes tecnologias:
-
-- **Next.js:** Framework React para renderização do lado do servidor e geração de sites estáticos.
-- **React:** Biblioteca JavaScript para construção de interfaces de usuário.
-- **TypeScript:** Superset tipado de JavaScript para melhor manutenção e escalabilidade do código.
-- **Tailwind CSS:** Framework CSS utilitário para design responsivo e customizável.
-- **Lucide React:** Biblioteca de ícones SVG para React.
-- **Vercel:** Plataforma de hospedagem e implantação para aplicações Next.js.
-- **Firebase:** Serviço Backend-as-a-Service (BaaS) para autenticação e banco de dados.
-- **ESLint & Prettier:** Ferramentas para garantir qualidade e consistência do código.
-
-## ✨ Funcionalidades Principais
-
-1. **Página Inicial Informativa:** Apresenta os serviços oferecidos e informações sobre o estúdio.
-2. **Sistema de Agendamento:** Permite que os clientes agendem seus horários diretamente pelo site.
-3. **Galeria de Serviços:** Exibe os diferentes estilos de extensão de cílios disponíveis.
-4. **Seção "Sobre":** Fornece informações sobre a proprietária e a história do estúdio.
-5. **Informações de Contato:** Inclui endereço, telefone e e-mail para fácil contato.
-6. **Integração com WhatsApp:** Botão de agendamento que redireciona para o WhatsApp do estúdio.
-7. **Blog:** Área para publicar dicas de beleza, tendências e novidades.
-8. **Testimonials:** Depoimentos de clientes satisfeitos para construir confiança.
-9. **SEO Otimizado:** Melhorar a visibilidade nos motores de busca.
-10. **Design Responsivo:** Garantir a melhor experiência em dispositivos móveis e desktops.
-
-## 📂 Estrutura do Projeto
+## Como funciona
 
 ```
-julias-beauty-lash-studio/
-│
-├── app/
-│   ├── components/
-│   │   ├── Calendar.tsx
-│   │   ├── Footer.tsx
-│   │   ├── Header.tsx
-│   │   ├── Gallery.tsx
-│   │   └── ...outros componentes
-│   ├── pages/
-│   │   ├── index.tsx
-│   │   ├── about.tsx
-│   │   ├── services.tsx
-│   │   └── ...outras páginas
-│   ├── styles/
-│   │   └── globals.css
-│   ├── utils/
-│   │   └── ip.ts
-│   ├── hooks/
-│   │   └── useAuth.ts
-│   ├── context/
-│   │   └── AuthContext.tsx
-│   ├── layout.tsx
-│   └── ...outros arquivos
-│
-├── public/
-│   ├── images/
-│   │   ├── lashe.png
-│   │   ├── julia.png
-│   │   ├── screenshot-home.png
-│   │   └── ...outras imagens
-│   └── ...outros arquivos estáticos
-│
-├── __tests__/
-│   └── ...testes unitários e de integração
-│
-├── styles/
-│   └── globals.css
-│
-├── .eslintrc.js
-├── .gitignore
-├── package.json
-├── tsconfig.json
-├── tailwind.config.js
-├── README.md
-└── ...outros arquivos de configuração
+navegador (app/page.tsx, client component)
+  │
+  ├─ GET  /                            página única renderizada pelo Next.js
+  ├─ GET  /api/appointments            lê appointments.json e lista os horários ocupados
+  ├─ POST /api/appointments            valida {ip, date, time} e grava o agendamento
+  └─ DELETE /api/appointments?ip=...   remove o agendamento do visitante
+        │
+        └─ app/api/appointments/route.ts (Route Handler) ──▶ appointments.json
+
+ao confirmar: window.open("https://wa.me/5547997691001?text=...") com data e hora na mensagem
 ```
 
-## 🚀 Instalação e Execução
+- O identificador do agendamento é o IP público do visitante, obtido no cliente em `app/utils/ip.ts` via `https://api.ipify.org`. Não há login nem cadastro.
+- A tabela "Horários Agendados" agrupa os horários ocupados por dia da semana; no formulário, os horários já ocupados da data escolhida aparecem como indisponíveis.
+- Depois de escolher data e hora, aparece uma confirmação com contagem regressiva de 5 segundos antes de abrir o WhatsApp.
+- A persistência é um arquivo JSON no diretório de trabalho do servidor (`appointments.json`), não um banco de dados.
 
-Para executar este projeto localmente, siga estas etapas:
+## Stack
 
-### Pré-requisitos
+| Camada | Escolha |
+|---|---|
+| Framework | Next.js 14.2 (App Router) com React 18 |
+| Linguagem | TypeScript 5 em modo estrito |
+| Estilo | Tailwind CSS 3.4 com cores próprias (`lash-bg`, `lash-text`, `lash-accent`) e fontes locais via `next/font/local` (Lato, Allura, Great Vibes, Geist) |
+| Ícones | lucide-react |
+| API | Route Handler em `app/api/appointments/route.ts` |
+| Persistência | arquivo JSON no filesystem (`appointments.json`) |
+| Pacotes | npm com `package-lock.json` versionado |
+| Deploy | Vercel (produção atual) e Docker / Fly.io (arquivos no repositório) |
 
-- **Node.js** (v14 ou superior)
-- **npm** (v6 ou superior) ou **Yarn**
-- **Git**
+## Requisitos
 
-### Passos
+- Node.js 18.17 ou superior (exigência do Next.js 14; testado com Node 20.18 na imagem Docker e Node 24.20 localmente)
+- npm 10 ou superior (testado com npm 11; o projeto usa `package-lock.json`)
+- Docker, opcional, para rodar a imagem de produção
 
-1. **Clone o repositório:**
+## Início rápido
 
 ```bash
-git clone https://github.com/evandrodevbr/julias-beauty-lash-studio.git
-```
-
-2. **Navegue até o diretório do projeto:**
-
-```bash
-cd julias-beauty-lash-studio
-```
-
-3. **Instale as dependências:**
-
-```bash
-npm install
-# ou
-yarn install
-```
-
-4. **Configure as Variáveis de Ambiente:**
-
-Crie um arquivo `.env.local` na raiz do projeto e adicione as variáveis necessárias:
-
-```env
-NEXT_PUBLIC_API_URL=https://api.juliasbeauty.com
-FIREBASE_API_KEY=your_api_key
-FIREBASE_AUTH_DOMAIN=your_auth_domain
-# ...outras variáveis
-```
-
-5. **Execute o servidor de desenvolvimento:**
-
-```bash
+git clone https://github.com/evandrodevbr/lashes-site.git
+cd lashes-site
+npm ci
 npm run dev
-# ou
-yarn dev
+# http://localhost:3000
 ```
 
-6. **Abra o site no navegador:**
-
-Acesse [http://localhost:3000](http://localhost:3000)
-
-## 🧪 Testes
-
-Este projeto utiliza [Jest](https://jestjs.io/) e [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) para testes.
-
-### Executar Testes
+Verificação rápida com o servidor de produção (comandos executados na revisão deste repositório):
 
 ```bash
-npm run test
-# ou
-yarn test
+npm run build
+npm run start
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/    # 200
+curl -s http://localhost:3000/api/appointments                     # {"appointments":[]}
 ```
 
-### Cobertura de Testes
+O navegador precisa alcançar `https://api.ipify.org` para obter o IP usado como identificador do agendamento.
+
+## Uso / API
+
+| Método e rota | Corpo / parâmetros | Resposta |
+|---|---|---|
+| `GET /` | nenhum | Página única com serviços, agenda e formulário (200) |
+| `GET /api/appointments` | nenhum | 200 `{"appointments":[{"ip","date","time"}]}` |
+| `POST /api/appointments` | JSON `{"ip":"string","date":"YYYY-MM-DD","time":"HH:MM"}` | 200 `{"success":true}`; 400 `{"error":"Invalid appointment data"}` se faltar campo; 500 em falha de escrita |
+| `DELETE /api/appointments?ip=1.2.3.4` | query `ip` | 200 `{"success":true}`; 400 `{"error":"IP is required"}` sem `ip` |
+
+Exemplo de agendamento:
 
 ```bash
-npm run test:coverage
-# ou
-yarn test:coverage
+curl -s -X POST http://localhost:3000/api/appointments \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"ip":"1.2.3.4","date":"2026-09-20","time":"10:00"}'
+# {"success":true}
 ```
 
-## 🤝 Contribuição
+## Produção / Deploy
 
-Contribuições são sempre bem-vindas! Siga os passos abaixo:
+Build e execução do artefato real:
 
-1. **Fork** este repositório
-2. **Crie uma branch** para sua feature:
 ```bash
-git checkout -b feature/nova-funcionalidade
+npm run build   # next build, gera o build de produção em .next/
+npm run start   # next start, serve o build de produção na porta 3000
 ```
-3. **Comite** suas mudanças:
+
+**Vercel.** O site está publicado em <https://lashes-site.vercel.app>, com deploy ligado ao repositório (cada push na branch `main` gera um novo deploy). Nessa hospedagem a página funciona, mas o endpoint de agendamento responde 500 porque o filesystem das funções é somente leitura. Detalhes em "Estado atual e limitações".
+
+**Docker.** A imagem é multi-stage com Node 20.18.0, roda `npm ci`, `npm run build` e inicia com `npm run start`:
+
 ```bash
-git commit -m 'Adiciona nova funcionalidade'
+docker build -t lashes-site .
+docker run -p 3000:3000 lashes-site
 ```
-4. **Push** para a branch:
-```bash
-git push origin feature/nova-funcionalidade
+
+**Fly.io.** O repositório inclui `fly.toml` (app `julialashes`, região `gru`) com volume montado em `/data`, e o Dockerfile define `DATABASE_URL="file:///data/sqlite.db"`. O código atual não usa nem o volume nem o sqlite: grava `appointments.json` no diretório de trabalho. Não há confirmação de deploy ativo no Fly.
+
+## Estrutura do projeto
+
 ```
-5. Abra um **Pull Request**
+app/
+├── api/appointments/route.ts   API de agendamentos (GET, POST, DELETE; arquivo JSON)
+├── components/
+│   ├── Calendar.tsx            formulário de data e hora com confirmação
+│   └── Footer.tsx              horários, endereço e contato
+├── fonts/                      fontes locais usadas por next/font/local
+├── globals.css                 estilos globais e utilitários do Tailwind
+├── layout.tsx                  layout raiz, metadados e SEO em pt-BR
+├── page.tsx                    página única (client component)
+└── utils/ip.ts                 obtém o IP público via api.ipify.org
+public/                         imagens (julia.png, lashe.png, womanLashe*.jpeg)
+appointments.json               dados dos agendamentos (estado atual, versionado)
+Dockerfile, fly.toml            caminhos alternativos de deploy
+```
 
-## 📄 Licença
+## Verificação
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/evandrodevbr/julias-beauty-lash-studio/blob/main/LICENSE) para mais detalhes.
+Não há testes automatizados neste repositório (nem Jest, ao contrário do que o README anterior dizia). O que existe e foi executado na revisão:
 
-## 📬 Contato
+- `npm ci` e `npm run build` com exit 0, sem erros de tipo; resta um aviso de ESLint em `Calendar.tsx` (`useEffect` sem `handleConfirm` nas dependências).
+- `npm run start` e `npm run dev` com curl nas rotas: `/` 200, `GET /api/appointments` 200, `POST` válido 200, `POST` incompleto 400, `DELETE` sem `ip` 400, `DELETE` com `ip` 200.
+- `docker build` e `docker run` com as mesmas rotas respondendo 200.
 
-- **Evandro**
-  - [Site Pessoal](https://evandro.dev.br)
-  - Email: [contato@evandro.dev.br](mailto:contato@evandro.dev.br)
-  - [LinkedIn](https://www.linkedin.com/in/evandrodevbr)
-  - [Twitter](https://twitter.com/evandrodevbr)
+## Estado atual e limitações
 
-**Link do Projeto:** [https://github.com/evandrodevbr/julias-beauty-lash-studio](https://github.com/evandrodevbr/julias-beauty-lash-studio)
+- O agendamento não persiste na Vercel: `GET /api/appointments` responde 500 em produção porque o filesystem das funções serverless é somente leitura. Verificado em 14/09/2026 em <https://lashes-site.vercel.app/api/appointments>.
+- `appointments.json` fica no diretório de trabalho e está versionado: rodar o app localmente deixa o arquivo modificado no git e, em uso real, grava dados de clientes (IP, data, hora) em um arquivo do repositório. Não commite essas alterações.
+- `bcrypt`, `sqlite` e `sqlite3` estão declarados no `package.json` mas não são importados em nenhum lugar; o Dockerfile e o `fly.toml` ainda preveem um banco sqlite que o código não usa.
+- O identificador do agendamento é o IP público (sem login): redes compartilhadas podem colidir e, se `api.ipify.org` estiver bloqueado no navegador da cliente, o agendamento falha com 400.
+- A tabela de horários mostra apenas os horários ocupados; não há confirmação no servidor nem painel administrativo para o estúdio.
+- Os metadados apontam para o domínio `https://juliasbeautylashstudio.com.br` (canonical, Open Graph e Twitter), que não resolve em DNS hoje; o site no ar é o do Vercel. As imagens `og-image.jpg` e `twitter-image.jpg` referenciadas também não existem no repositório.
+- Não há manifest ou apple-touch-icon para instalação como app no iOS.
+- Sem CI e sem testes automatizados.
 
-## 📁 Demo
+## Documentação
 
-Confira o site ao vivo: [Julia's Beauty Lash Studio](https://juliasbeauty.vercel.app)
+Não há documentação interna no repositório (sem pasta `docs/`). O contrato da API está resumido neste README e implementado em `app/api/appointments/route.ts`.
 
-## 📚 Recursos Adicionais
+- [Documentação do Next.js](https://nextjs.org/docs)
+- [Documentação do Tailwind CSS](https://tailwindcss.com/docs)
+- [Lucide](https://lucide.dev/)
 
-- [Documentação Next.js](https://nextjs.org/docs)
-- [Documentação Tailwind CSS](https://tailwindcss.com/docs)
-- [Documentação Lucide React](https://lucide.dev/)
-- [Guia de Contribuição](https://docs.github.com/pt/get-started/quickstart/contributing-to-projects)
+## Licença
 
----
-
-Desenvolvido com ❤️ por [Evandro](https://evandro.dev.br)
-
-[Julia's Beauty Lash Studio Logo]: https://raw.githubusercontent.com/evandrodevbr/julias-beauty-lash-studio/main/public/images/logo.png[License]: https://img.shields.io/github/license/evandrodevbr/julias-beauty-lash-studio
-[Issues]: https://img.shields.io/github/issues/evandrodevbr/julias-beauty-lash-studio[Forks]: https://img.shields.io/github/forks/evandrodevbr/julias-beauty-lash-studio[Stars]: https://img.shields.io/github/stars/evandrodevbr/julias-beauty-lash-studio[Last Commit]: https://img.shields.io/github/last-commit/evandrodevbr/julias-beauty-lash-studio[Screenshot da Página Inicial]: https://raw.githubusercontent.com/evandrodevbr/julias-beauty-lash-studio/main/public/images/screenshot-home.png```
-</output>
+O repositório não tem arquivo de licença e nenhuma licença está definida no GitHub. O README anterior citava MIT, mas não existe `LICENSE` no repositório.
